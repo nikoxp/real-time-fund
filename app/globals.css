@@ -676,6 +676,22 @@ input[type="number"] {
     backdrop-filter: none;
     padding: 0;
   }
+
+  .group-summary-sticky {
+    position: sticky;
+    top: 175px;
+    z-index: 35;
+    width: calc(100% + 32px);
+    margin: 0 -16px 16px -16px;
+    padding: 8px 16px;
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+  }
+
+  .group-summary-sticky .group-summary-card {
+    margin-bottom: 0;
+  }
 }
 
 /* 禁止移动端输入框自动缩放 */
@@ -753,7 +769,7 @@ input[type="number"] {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
 }
 
 .chip {
