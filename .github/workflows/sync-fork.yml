@@ -30,4 +30,5 @@ jobs:
           # 执行同步命令
           # --force 会强制覆盖，建议在纯镜像仓库使用
           # 如果有自己的改动，建议去掉 --force 使用默认合并
-          gh repo sync ${{ github.repository }} -b master
+          gh repo sync ${{ github.repository }} -b main
+
