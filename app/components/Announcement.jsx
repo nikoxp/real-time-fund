@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ANNOUNCEMENT_KEY = 'hasClosedAnnouncement_v15';
+const ANNOUNCEMENT_KEY = 'hasClosedAnnouncement_v18';
 
 export default function Announcement() {
   const [isVisible, setIsVisible] = useState(false);
@@ -75,21 +75,22 @@ export default function Announcement() {
               <span>公告</span>
             </div>
             <div style={{ color: 'var(--text)', lineHeight: '1.6', fontSize: '15px', overflowY: 'auto', minHeight: 0, flex: 1, paddingRight: '4px' }}>
-              <p>v0.2.4 版本更新内容如下：</p>
-              <p>1. 调整设置持仓相关弹框样式。</p>
-              <p>2. 基金详情弹框支持设置持仓相关参数。</p>
-              <p>3. 添加基金到分组弹框展示持仓金额数据。</p>
-              <p>4. 已登录用户新增手动同步按钮。</p>
+              <p>v0.2.7 更新内容：</p>
+              <p>1. 业绩走势增加对比线。</p>
+              <p>2. 修复排序存储别名问题。</p>
+              <p>3. PC端斑马纹 hover 样式问题。</p>
+              <p>4. 修复大盘指数刷新及用户数据同步问题。</p>
               <br/>
-              <p>答疑：</p>
-              <p>1. 因估值数据源问题，大部分海外基金估值数据不准或没有，暂时没有解决方案。</p>
-              <p>2. 因交易日用户人数过多，为控制服务器免费额度上限，暂时减少数据自动同步频率，新增手动同步按钮。</p>
-              <p>如有建议，欢迎进用户支持群反馈。</p>
+              <p>下一版本更新内容:</p>
+              <p>1. 关联板块。</p>
+              <p>2. 收益曲线。</p>
+              <p>3. 估值差异列。</p>
+              <p>如有建议和问题，欢迎进用户支持群反馈。</p>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
-              <button 
-                className="button" 
+              <button
+                className="button"
                 onClick={handleClose}
                 style={{ width: '100%', justifyContent: 'center', display: 'flex', alignItems: 'center' }}
               >

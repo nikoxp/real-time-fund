@@ -34,6 +34,17 @@ const getBrowserTimeZone = () => {
 const TZ = getBrowserTimeZone();
 const toTz = (input) => (input ? dayjs.tz(input, TZ) : dayjs().tz(TZ));
 
+const formatDisplayDate = (value) => {
+  if (!value) return '-';
+
+  const d = toTz(value);
+  if (!d.isValid()) return value;
+
+  const hasTime = /[T\s]\d{2}:\d{2}/.test(String(value));
+
+  return hasTime ? d.format('MM-DD HH:mm') : d.format('MM-DD');
+};
+
 export default function FundCard({
   fund: f,
   todayStr,
@@ -70,7 +81,7 @@ export default function FundCard({
     boxShadow: 'none',
     paddingLeft: 0,
     paddingRight: 0,
-    background: 'transparent',
+    background: theme === 'light'  ? 'rgb(250,250,250)' : 'none',
   } : {};
 
   return (
@@ -91,6 +102,7 @@ export default function FundCard({
                 e.stopPropagation();
                 onRemoveFromGroup?.(f.code);
               }}
+              style={{backgroundColor: 'transparent'}}
               title="从当前分组移除"
             >
               <ExitIcon width="18" height="18" style={{ transform: 'rotate(180deg)' }} />
@@ -125,7 +137,11 @@ export default function FundCard({
         <div className="actions">
           <div className="badge-v">
             <span>{f.noValuation ? '净值日期' : '估值时间'}</span>
-            <strong>{f.noValuation ? (f.jzrq || '-') : (f.gztime || f.time || '-')}</strong>
+            <strong>
+              {f.noValuation
+                ? formatDisplayDate(f.jzrq)
+                : formatDisplayDate(f.gztime || f.time)}
+            </strong>
           </div>
           <div className="row" style={{ gap: 4 }}>
             <button
@@ -366,6 +382,15 @@ export default function FundCard({
           </TabsList>
           {hasHoldings && (
             <TabsContent value="holdings" className="mt-3 outline-none">
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  marginBottom: 4,
+                }}
+              >
+                <span className="muted">涨跌幅 / 占比</span>
+              </div>
               <div className="list">
                 {f.holdings.map((h, idx) => (
                   <div className="item" key={idx}>
@@ -393,7 +418,8 @@ export default function FundCard({
               code={f.code}
               isExpanded
               onToggleExpand={() => onToggleTrendCollapse?.(f.code)}
-              transactions={transactions?.[f.code] || []}
+              // 未设置持仓金额时，不展示买入/卖出标记与标签
+              transactions={profit ? (transactions?.[f.code] || []) : []}
               theme={theme}
               hideHeader
             />
@@ -464,7 +490,8 @@ export default function FundCard({
             code={f.code}
             isExpanded={!collapsedTrends?.has(f.code)}
             onToggleExpand={() => onToggleTrendCollapse?.(f.code)}
-            transactions={transactions?.[f.code] || []}
+            // 未设置持仓金额时，不展示买入/卖出标记与标签
+            transactions={profit ? (transactions?.[f.code] || []) : []}
             theme={theme}
           />
         </>
